@@ -34,7 +34,12 @@ DATA_FILE = 'todos.json'
 def load_todos():
     if os.path.exists(DATA_FILE):
         with open(DATA_FILE, 'r') as f:
-            return json.load(f)
+            todos = json.load(f)
+            # Ensure all todos have a 'title' key
+            for todo in todos:
+                if 'title' not in todo:
+                    todo['title'] = ""
+            return todos
     return []
 
 def save_todos(todos):
